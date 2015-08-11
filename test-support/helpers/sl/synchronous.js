@@ -1,9 +1,9 @@
 import AjaxHelper from './synchronous/ajax';
 import contains from './synchronous/contains';
-import requires from './synchronous/requires';
+import argumentTypes from './synchronous/argumentTypes';
 
 export {
     AjaxHelper,
     contains,
-    requires
+    argumentTypes
 };
