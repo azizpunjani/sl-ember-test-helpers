@@ -5,14 +5,14 @@ export const TYPES = Object.freeze({
     'boolean': false,
     'class': Ember.Object.extend(),
     'date': new Date(),
-    'error': new Error( 'test' ),
     'function' : function() {},
     'instance': Ember.Object.create(),
     'null': null,
     'object': {},
     'regexp': /test/,
     'string': '',
-    'undefined': undefined
+    'undefined': undefined,
+    'error': new Error( 'test' )
 });
 
 /**
@@ -35,12 +35,35 @@ export function argumentTypes( fn, context ) {
 export class ArgumentTypes {
 
     constructor( fn, context, typesObject ) {
+        this.checkArgumentTypes( fn, context, typesObject );
+
         this.types = typesObject;
         this.fn = fn;
         this.context = context || null;
         this.args = [];
         this.excludeTypes = Ember.A();
         this.index = 0;
+    }
+
+    checkArgumentTypes( fn, context, typesObject ) {
+        const validContextTypes = Ember.A( [ 'object', 'undefined', 'instance' ] );
+
+        Ember.assert(
+            'First argument needs to be a function',
+            'function' === Ember.typeOf( fn )
+        );
+
+        Ember.assert(
+            'Context needs to be an object or an instance',
+            validContextTypes.contains( Ember.typeOf( context ) ) &&
+            'symbol' !== typeof context
+        );
+
+        Ember.assert(
+            'Types needs to be an object',
+            'object' === Ember.typeOf( typesObject ) &&
+            'symbol' !== typeof context
+        );
     }
 
     arg( position ) {

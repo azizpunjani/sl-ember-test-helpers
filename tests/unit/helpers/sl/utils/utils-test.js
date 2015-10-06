@@ -6,7 +6,6 @@ import {
     convertObjectKeysToArray,
     doArraysIntersect
 } from '../../../../helpers/sl/utils/utils';
-import requires from '../../../../helpers/sl/synchronous/requires';
 
 module( 'Unit | Utils | sl/utils/utils' );
 
@@ -229,15 +228,6 @@ test( 'convertStringToArray() returns an array with as many elements as there' +
 });
 
 test( 'convertObjectKeysToArray() requires an object to be provided', function( assert ) {
-    const requiredObjectTest = requires(
-        convertObjectKeysToArray,
-        [ 'object' ]
-    );
-
-    assert.ok(
-        requiredObjectTest.requires,
-        requiredObjectTest.messages
-    );
 });
 
 test( 'convertObjectKeysToArray() returns an array of object properties', function( assert ) {
